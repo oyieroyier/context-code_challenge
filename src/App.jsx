@@ -7,7 +7,6 @@ const App = () => {
 			<AlbumProvider>
 				<div className="query-container">
 					<AllAlbums />
-					Al
 				</div>
 				<div className="mutate-container">
 					<NewAlbum />

@@ -1,32 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRef } from 'react';
-import { createAlbum } from './api/api';
+import { useContext } from 'react';
+import AlbumsContext from './context/AlbumsContext';
 
 const NewAlbum = () => {
-	const idRef = useRef(null);
-	const titleRef = useRef(null);
-	const albumUrlRef = useRef(null);
-	const albumThumbnailRef = useRef(null);
-	const queryClient = useQueryClient();
-
-	const createAlbumMutation = useMutation({
-		mutationFn: createAlbum,
-		onSuccess: (data) => {
-			queryClient.setQueryData(['albums', data.id], data);
-			queryClient.invalidateQueries(['albums'], { exact: true });
-		},
-	});
-
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		createAlbumMutation.mutate({
-			albumId: Number(idRef.current.value),
-			title: titleRef.current.value,
-			url: albumUrlRef.current.value,
-			thumbnailUrl: albumThumbnailRef.current.value,
-		});
-	}
+	const { handleSubmit, idRef, titleRef, albumThumbnailRef, albumUrlRef } =
+		useContext(AlbumsContext);
 
 	return (
 		<div className="card">
