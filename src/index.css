@@ -79,19 +79,29 @@
 }
 
 /* card */
+.album-cards-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	padding: 1rem;
+}
 .album-card {
-	width: 250px;
-	height: 300px;
+	width: 150px;
+	border: 1px solid red;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 8px;
 	overflow: hidden;
-	border-radius: 20px;
-	border: #333 2px solid;
-	text-align: center;
 }
 
 .album-card h1 {
-	padding: 10px;
+	text-align: center;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	font-size: small;
 }
 
 .album-card img {
 	width: 100%;
+	/* border-radius: 8px; */
 }

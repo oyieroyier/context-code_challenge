@@ -5,7 +5,7 @@ const AllAlbums = () => {
 	const { albums } = useContext(AlbumsContext);
 
 	return (
-		<div>
+		<div className='album-cards-container'>
 			{albums.map((album, index) => (
 				<div className="album-card" key={index}>
 					<h1>{album.title}</h1>
