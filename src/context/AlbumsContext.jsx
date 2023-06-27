@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useRef } from 'react';
-import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { createAlbum, getAlbums } from '../api/api';
 
 const AlbumsContext = createContext(null);
@@ -10,22 +10,7 @@ export const AlbumProvider = ({ children }) => {
 	const titleRef = useRef(null);
 	const albumUrlRef = useRef(null);
 	const albumThumbnailRef = useRef(null);
-	const queryClient = new QueryClient();
-
-	// GET Albums
-	const albumsQuery = useQuery({
-		queryKey: ['albums'],
-		queryFn: getAlbums,
-	});
-
-	useEffect(() => {
-		if (albumsQuery.isSuccess) {
-			setAlbums(albumsQuery.data);
-		}
-	}, [albumsQuery]);
-
-	if (albumsQuery.isLoading) return <h1>Loading...</h1>;
-	if (albumsQuery.isError) return <h1>{JSON.stringify(albumsQuery.error)}</h1>;
+	const queryClient = useQueryClient();
 
 	// POST Album
 	const createAlbumMutation = useMutation({
@@ -46,6 +31,21 @@ export const AlbumProvider = ({ children }) => {
 			thumbnailUrl: albumThumbnailRef.current.value,
 		});
 	}
+	// GET Albums
+	const albumsQuery = useQuery({
+		queryKey: ['albums'],
+		queryFn: getAlbums,
+	});
+
+	useEffect(() => {
+		if (albumsQuery.isSuccess) {
+			setAlbums(albumsQuery.data);
+		}
+	}, [albumsQuery]);
+
+	if (albumsQuery.isLoading) return <h1>Loading...</h1>;
+	if (albumsQuery.isError) return <h1>{JSON.stringify(albumsQuery.error)}</h1>;
+
 	return (
 		<AlbumsContext.Provider
 			value={{
